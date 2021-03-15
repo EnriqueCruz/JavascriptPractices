@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simon Dice</title>
+    <style>
+      body {
+        margin: 0;
+        background: #dedede;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .gameboard {
+        height: 100vh;
+        width: 100vh;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+        max-height: 60vh;
+        max-width: 60vh;
+      }
+
+      .color {
+        width: 50%;
+        height: 50%;
+        display: inline-block;
+      }
+
+      .left {
+        float: left;
+      }
+
+      .right {
+        float: left;
+      }
+
+      .celeste {
+        background: #22a6b3;
+      }
+
+      .celeste.light {
+        background: #7ed6df;
+      }
+
+      .violeta {
+        background: #be2edd;
+      }
+
+      .violeta.light {
+        background: #e056fd;
+      }
+
+      .naranja {
+        background: #f0932b;
+      }
+
+      .naranja.light {
+        background: #ffbe76;
+      }
+
+      .verde {
+        background: #6ab04c;
+      }
+
+      .verde.light {
+        background: #badc58;
+      }
+
+      .btn-start {
+        width: 400px;
+        height: 100px;
+        background: #ecf0f1;
+        color: #2c3e50;
+        font-size: 2.5rem;
+        position: absolute;
+        top: calc(50% - 50px);
+        left: calc(50% - 200px);
+      }
+
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gameboard">
+      <div id="celeste" class="color celeste left" data-color="celeste"></div>
+      <div id="violeta" class="color violeta right" data-color="violeta"></div>
+      <div id="naranja" class="color naranja left" data-color="naranja"></div>
+      <div id="verde" class="color verde right" data-color="verde"></div>
+      <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
+    </div>
+    <script>
+      const celeste = document.getElementById('celeste')
+      const violeta = document.getElementById('violeta')
+      const naranja = document.getElementById('naranja')
+      const verde = document.getElementById('verde')
+      const btnEmpezar = document.getElementById('btnEmpezar')
+
+      class Juego {
+        constructor() {
+          this.inicializar()
+        }
+
+        inicializar() {
+          btnEmpezar.classList.add('hide')
+          let victoria = true
+          let patternSize = 3
+          while(victoria === true){
+            let patternGame =  new Array(patternSize);
+            // Generate an array which contain the pattern of game
+            patternGame = this.generatePattern(patternSize,patternGame);
+            console.log(patternGame);
+            victoria = false;
+            patternSize++;
+          }
+          
+        }
+        //This Method generates a unique random number between 1 and 4 (respresenting each option of the game)
+        randomNumber(min,max){
+          let randomValue;
+          randomValue = Math.floor(Math.random() * (max - min + 1) + min);
+          return randomValue;
+        }
+
+        //This method assigns a random number for each secuence of game
+        generatePattern(patternSize,patternGame){
+            for(let i = 0; i < patternSize;i++){
+              patternGame[i]= this.randomNumber(1,4);
+            }
+            console.log(patternGame);
+            return patternGame;
+        }
+
+        // The method will show the pattern user will have to memmorize
+        showPattern(){
+
+        }
+      }
+
+      function empezarJuego() {
+        var juego = new Juego()
+      }
+    </script>
+  </body>
+</html>
