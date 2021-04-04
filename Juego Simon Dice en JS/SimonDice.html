@@ -99,6 +99,13 @@
       const verde = document.getElementById('verde')
       const btnEmpezar = document.getElementById('btnEmpezar')
 
+      const mapSlices = {
+        'celeste':1,
+        'violeta':2,
+        'naranja':3,
+        'verde':4
+      }
+      
       class Juego {
         constructor() {
           this.inicializar()
@@ -106,15 +113,16 @@
 
         inicializar() {
           btnEmpezar.classList.add('hide')
-          let victoria = true
+          let victory = true
           let patternSize = 3
-          while(victoria === true){
-            let patternGame =  new Array(patternSize);
+          while(victory === true){
+            let patternGame =  new Array(patternSize); // Step 1: assing the array length
             // Generate an array which contain the pattern of game
-            patternGame = this.generatePattern(patternSize,patternGame);
-            console.log(patternGame);
-            victoria = false;
-            patternSize++;
+            patternGame = this.generatePattern(patternSize,patternGame);// Step 2: method will get a random value for each try
+            console.log(patternGame); // for showing the pattern generated
+            victory = false; // this value is setted false otherwise this will be a inifite loop 
+            patternSize++; 
+            this.showPattern(patternGame);// we show to the user which pattern will have to memorize
           }
           
         }
@@ -135,13 +143,63 @@
         }
 
         // The method will show the pattern user will have to memmorize
-        showPattern(){
+        // so we have to apply a time function for change the style 
+        showPattern(patternGame){
+             for(let m = 0; m < patternGame.length; m++){
+               console.log(m);
+               console.log(patternGame[m]);
+               this.changeOriginalStyle(patternGame[m])
 
+             }
         }
+
+        // this method will change style of a specific slice of the circle 
+        changeOriginalStyle(option){
+          let originalStyle;
+          let colour;
+          switch(option){
+            case 1:
+              colour = celeste;  
+              originalStyle = colour.className;
+              colour.className = "color celeste light left";
+            break;
+            case 2:
+              colour = violeta;  
+              originalStyle = colour.className;
+              colour.className = "color violeta light right";
+            break;
+            case 3:
+              colour = naranja;  
+              originalStyle = colour.className;
+              colour.className = "color naranja light left";
+            break;
+            case 4:
+              colour = verde;  
+              originalStyle = colour.className;
+              colour.className = "color verde light right";  
+            break;
+            default:
+              console.log("Opción no válida");  
+            break;
+            }  
+
+            let start = function(){
+
+            } 
+            
+            let timer = function(){
+              setTimeout( () =>
+                colour.className = originalStyle
+              , option * 1000);
+            }
+
+            timer();
+        }
+        
       }
 
       function empezarJuego() {
-        var juego = new Juego()
+        let juego = new Juego()
       }
     </script>
   </body>
