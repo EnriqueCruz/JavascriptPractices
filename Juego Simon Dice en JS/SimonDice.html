@@ -145,12 +145,19 @@
         // The method will show the pattern user will have to memmorize
         // so we have to apply a time function for change the style 
         showPattern(patternGame){
+          let element = 1;// this variable will help us to indicate the number of seconds for each option
              for(let m = 0; m < patternGame.length; m++){
-               console.log(m);
-               console.log(patternGame[m]);
-               this.changeOriginalStyle(patternGame[m])
-
+ //              console.log(m);
+ //              console.log(patternGame[m]);
+               
+               setTimeout( ()=>{
+                this.changeOriginalStyle(patternGame[m])
+               },element++ * 1000);
+               setTimeout( ()=>{
+               this.returnOriginalStyle(patternGame[m]);
+              },element++ * 1000);
              }
+
         }
 
         // this method will change style of a specific slice of the circle 
@@ -182,18 +189,37 @@
               console.log("Opción no válida");  
             break;
             }  
+        }
 
-            let start = function(){
+        returnOriginalStyle(option){
+          let colour;
+        switch(option){
+          case 1:
+              colour = celeste;  
+              colour.className = "color celeste left";
+            break;
+            case 2:
+              colour = violeta;  
+              colour.className = "color violeta right";
+            break;
+            case 3:
+              colour = naranja;  
+              colour.className = "color naranja left";
+            break;
+            case 4:
+              colour = verde;  
+              colour.className = "color verde right";  
+            break;
+            default:
+              console.log("Opción no válida");  
+            break;
+            }  
+        }
 
-            } 
-            
-            let timer = function(){
-              setTimeout( () =>
-                colour.className = originalStyle
-              , option * 1000);
-            }
+        // This function will get user´s entrance, then the values are compared againts the original set
+        // of options randomly generated
+        getUserAttempt(){
 
-            timer();
         }
         
       }
