@@ -105,32 +105,34 @@
         'naranja':3,
         'verde':4
       }
+
+      const enableUserEntry = false;
       
       class Juego {
         constructor() {
+          
           this.inicializar()
         }
 
+        // Step 1
         inicializar() {
           btnEmpezar.classList.add('hide')
           let victory = true
           let patternSize = 3
           while(victory === true){
             let patternGame =  new Array(patternSize); // Step 1: assing the array length
-            // Generate an array which contain the pattern of game
+            // Step2 - Generate an array which contain the pattern of game
             patternGame = this.generatePattern(patternSize,patternGame);// Step 2: method will get a random value for each try
             console.log(patternGame); // for showing the pattern generated
             victory = false; // this value is setted false otherwise this will be a inifite loop 
             patternSize++; 
+            // Step 3: show pattern to user
             this.showPattern(patternGame);// we show to the user which pattern will have to memorize
+            this.enableUserEntry = true;
+            // Step 4: get user entry
+            this.getUserAttempt(this.enableUserEntry,this.patternGame);
           }
           
-        }
-        //This Method generates a unique random number between 1 and 4 (respresenting each option of the game)
-        randomNumber(min,max){
-          let randomValue;
-          randomValue = Math.floor(Math.random() * (max - min + 1) + min);
-          return randomValue;
         }
 
         //This method assigns a random number for each secuence of game
@@ -142,14 +144,20 @@
             return patternGame;
         }
 
+        //This Method generates a unique random number between 1 and 4 (respresenting each option of the game)
+        randomNumber(min,max){
+          let randomValue;
+          randomValue = Math.floor(Math.random() * (max - min + 1) + min);
+          return randomValue;
+        }
+
         // The method will show the pattern user will have to memmorize
         // so we have to apply a time function for change the style 
         showPattern(patternGame){
           let element = 1;// this variable will help us to indicate the number of seconds for each option
              for(let m = 0; m < patternGame.length; m++){
  //              console.log(m);
- //              console.log(patternGame[m]);
-               
+ //              console.log(patternGame[m]); 
                setTimeout( ()=>{
                 this.changeOriginalStyle(patternGame[m])
                },element++ * 1000);
@@ -218,8 +226,36 @@
 
         // This function will get user´s entrance, then the values are compared againts the original set
         // of options randomly generated
-        getUserAttempt(){
-
+        getUserAttempt(enableUserEntry, patternGame){
+            let userEntry =  new Array(patternGame);
+            let counter = 0;
+            console.log(userEntry);
+            if(enableUserEntry){
+              document.addEventListener("click", (event) =>{
+                let optionValue=0;
+                let colourName = event.target.id;
+                console.log(event.target.id)
+                while(counter=!3){
+                  switch(optionValue){
+                      case "celeste":
+                        colourName = 1;
+                      break;
+                      case "violeta":
+                        colourName = 2;
+                      break;
+                      case "naranja":
+                        colourName = 3;
+                      break;
+                      case "verde":
+                        colourName = 4;
+                      break;
+                  }
+                  userEntry.push(optionValue);
+                  counter++;
+                }
+              })
+              console.log("User Entry" + userEntry);
+            }
         }
         
       }
